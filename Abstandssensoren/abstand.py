@@ -5,7 +5,7 @@ _REGISTER_SHIFT_BIT = 0x35
 _REGISTER_DISTANCE = 0x5e
 
 class GP2Y0E03:
-    def __init__(self, i2c, address=0x40):
+    def __init__(self, i2c, address=0x40): #Change the Adress on page 32
         self.i2c = i2c
         self.address = address
 
