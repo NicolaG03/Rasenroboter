@@ -23,4 +23,8 @@ class GP2Y0E03:
 		
 i2c = SMBus(1)
 s = GP2Y0E03(i2c)
-print s.read()
+v_abstand = s.read()
+if v_abstand <= 6:
+	#interrutp für ev. main file
+	pass 
+print v_abstand
