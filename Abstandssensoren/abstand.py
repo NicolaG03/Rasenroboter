@@ -1,5 +1,5 @@
-
 from  smbus import SMBus
+import time
 
 _REGISTER_SHIFT_BIT = 0x35
 _REGISTER_DISTANCE = 0x5e
@@ -17,6 +17,7 @@ class GP2Y0E03:
 
     def read(self, raw=False):
         shift = self._register8(_REGISTER_SHIFT_BIT)
+	time.sleep(0.1)
         value = self._register16(_REGISTER_DISTANCE)        
         dist = (((value[0] << 4) | value[1])/16)/2**shift # Distance in cm - see http://media.digikey.com/pdf/Data%20Sheets/Sharp%20PDFs/GP2Y0E03_Spec_Feb2013.pdf
         return dist
