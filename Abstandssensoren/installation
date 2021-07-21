@@ -8,4 +8,5 @@ I2C aktivieren.
 sudo i2cdetect -y 1 #I2C Addressraum absuchen
 
 
+sudo pip3 install adafruit-circuitpython-tca9548a
 
