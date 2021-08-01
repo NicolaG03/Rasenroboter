@@ -1,4 +1,3 @@
-#Fehlerbehebung noch hinzufügen!!!
 import time
 import board
 import adafruit_tca9548a
@@ -28,24 +27,26 @@ class GP2Y0E03:
                 dist = (((value[0] << 4) | value[1])/16)/2**shift # Distance in cm - see http://media.digikey.com/pdf/Data%20Sheets/Sharp%20PDFs/GP2Y0E03_Spec_Feb2013.pdf
                 return dist
 
-# Create I2C bus as normal
-i2c = board.I2C()  # uses board.SCL and board.SDA
-# Create the TCA9548A object and give it the I2C bus
-tca = adafruit_tca9548a.TCA9548A(i2c)
-i2c = SMBus(1)
-s = GP2Y0E03(i2c)
-s._address(0x40)
 while 1:
-        if tca[0].try_lock():
-                time.sleep(0.1)
-                print (s.read())
-                tca[0].unlock()
-                time.sleep(0.1)
-        #if (tca[1].try_lock()):
-        if(0):
-                time.sleep(0.1)
-                print (s.read())
-                tca[1].unlock()
-        time.sleep(1)
-
-
+        # Create I2C bus as normal
+        i2c = board.I2C()  # uses board.SCL and board.SDA
+        # Create the TCA9548A object and give it the I2C bus
+        tca = adafruit_tca9548a.TCA9548A(i2c)
+        i2c = SMBus(1)
+        s = GP2Y0E03(i2c)
+        s._address(0x40)
+        while 1:
+                try:
+                        if tca[0].try_lock():
+                                time.sleep(0.1)
+                                print (s.read())
+                                tca[0].unlock()
+                                time.sleep(0.1)
+                        if (tca[1].try_lock()):
+                        #if(0):
+                                time.sleep(0.1)
+                                print (s.read())
+                                tca[1].unlock()
+                        time.sleep(1)
+                except OSError:
+                        break
