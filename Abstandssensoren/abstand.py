@@ -47,6 +47,10 @@ while 1:
                                 time.sleep(0.1)
                                 print (s.read())
                                 tca[1].unlock()
+                        if(tca[2].try_lock()):
+                                time.sleep(0.1)
+                                print(s.read())
+                                tca[2].unlock()
                         time.sleep(1)
                 except OSError:
                         break
