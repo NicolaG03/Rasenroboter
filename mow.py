@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(13, GPIO.OUT)
 
-def forward():
+def mow():
 
     p = GPIO.PWM(13, 50)
 
