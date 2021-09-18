@@ -2,6 +2,8 @@
 from ina219 import INA219
 from ina219 import DeviceRangeError
 import RPi.GPIO as GPIO
+import board
+import adafruit_tca9548a 
 
 SHUNT_OHMS = 0.1
 RELAIS_1_GPIO = 37 #GPIO ausfüllen
@@ -13,6 +15,9 @@ vtabel = [16.1,16.2,16.3,16.4,16.5,16.6,16.7,16.8,16.9,17,17.1,17.2,17.3,17.4,17
 ptabel = [0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84,86,88,90,92,94,96,98,100]
 
 def measure():
+    i2c = board.I2C()
+    tca = adafruit_tca9548a.TCA9548a(i2c)
+    tca[3].try_lock()
     ina = INA219(SHUNT_OHMS)
     ina.configure()
 
@@ -23,6 +28,7 @@ def measure():
         GPIO.output(RELAIS_1_GPIO, GPIO.HIGH) # an
     else:
         GPIO.output(RELAIS_1_GPIO, GPIO.LOW) # aus   
+    tca[3].unlock()
     return percent
 
     
